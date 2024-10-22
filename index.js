@@ -38,6 +38,7 @@ async function main() {
      break;
 
      case "bulk-insert":
+      await bulkInsert(MovieModel);
       break;
 
     case "get-all":
@@ -61,6 +62,19 @@ async function checkConnection() {
     console.error("MongoDB connection failed:", err);
   }
   console.log("check db connection ended...");
+}
+
+async function bulkInsert(MovieModel) {
+  try {
+    console.log("Reading data from seed.json...");
+    const data = fs.readFileSync("seed.json", "utf-8");
+    const parsed = JSON.parse(data);
+    console.log("Parsed data:", parsed);
+    await MovieModel.insertMany(parsed);
+    console.log("Bulk insert completed successfully.");
+  } catch (error) {
+    console.error("Error during bulk insert:", error);
+  }
 }
 
 main();
