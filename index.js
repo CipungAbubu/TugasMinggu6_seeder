@@ -43,6 +43,7 @@ async function main() {
       break;
 
     case "get-all":
+      await getAllMovies(MovieModel);
       break;
 
     default:
@@ -84,6 +85,15 @@ async function bulkInsert(MovieModel) {
     console.log("Bulk insert completed successfully.");
   } catch (error) {
     console.error("Error during bulk insert:", error);
+  }
+}
+
+async function getAllMovies(MovieModel) {
+  try {
+    const allMovies = await MovieModel.find();
+    console.log("All movies:", allMovies);
+  } catch (error) {
+    console.error("Error fetching movies:", error);
   }
 }
 
