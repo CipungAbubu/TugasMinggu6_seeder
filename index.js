@@ -35,6 +35,7 @@ async function main() {
       break;
 
    case "reset-db":
+     await resetDatabase(MovieModel);
      break;
 
      case "bulk-insert":
@@ -62,6 +63,15 @@ async function checkConnection() {
     console.error("MongoDB connection failed:", err);
   }
   console.log("check db connection ended...");
+}
+
+async function resetDatabase(MovieModel) {
+  try {
+    await MovieModel.deleteMany({});
+    console.log("Database reset completed successfully.");
+  } catch (error) {
+    console.error("Error resetting the database:", error);
+  }
 }
 
 async function bulkInsert(MovieModel) {
